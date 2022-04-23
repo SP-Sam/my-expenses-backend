@@ -1,9 +1,10 @@
 import { NextFunction, Request, Response } from 'express';
 import { prisma } from '../database/prismaClient';
 import { INewUser } from '../interfaces/UserInterfaces';
+import { generateToken } from '../utils/JWT';
 
 class UserController {
-  async create(req: Request, res: Response, next: NextFunction) {
+  async signUp(req: Request, res: Response, next: NextFunction) {
     try {
       const { name, lastName, userName, password }: INewUser = req.body;
 
@@ -16,17 +17,22 @@ class UserController {
         },
       });
 
-      return res.status(201).json(newUser);
+      const token = generateToken({
+        id: newUser.id,
+        userName: newUser.user_name,
+      });
+
+      return res.status(201).json({ token });
     } catch (err) {
       next(err);
     }
   }
 
-  async getAll(_req: Request, res: Response, next: NextFunction) {
+  async login(req: Request, res: Response, next: NextFunction) {
     try {
-      const users = await prisma.user.findMany();
+      const token = req.headers.authorization;
 
-      return res.status(200).json(users);
+      return res.json(token);
     } catch (err) {
       next(err);
     }
