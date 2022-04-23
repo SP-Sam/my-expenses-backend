@@ -1,0 +1,84 @@
+1. Iniciar o projeto
+  $ npm init ou npm init -y
+
+2. Criar o .editorconfig
+  - Instalar a extensão "EditorConfig for VS Code"
+  - Clicar com o botão direito no explorer e selecionar "Generate .editorconfig"
+
+3. Instalar o Typescript no projeto
+  $ npm install typescript -D
+
+4. Iniciar o Typescript dentro do projeto
+  $ npx tsc --init
+
+  - Dentro do tsconfig.json:
+  {
+    "compilerOptions": {
+      "target": "ES6",
+      "module": "CommonJS",
+      "allowJs": true,
+      "esModuleInterop": true,
+      "skipLibCheck": true,
+      "forceConsistentCasingInFileNames": true,
+
+      "rootDir": "./src",
+      "outDir": "./dist"
+    }
+  }
+
+5. Instalar o eslint no projeto
+  $ npm install eslint -D
+
+6. Iniciar o ESLint dentro do projeto
+  $ npx eslint --init
+  - Escolher as configurações para o projeto
+
+7. Instalar o Prettier o dependências
+  $ npm install prettier -D
+  $ npm install eslint-config-prettier -D
+  $ npm install eslint-plugin-prettier -D
+  $ npm install @babel/eslint-parser -D
+
+8. Configurar o Prettier dentro do .eslintrc.json
+  {
+    "env": {
+      "es2021": true,
+      "node": true
+    },
+    "extends": ["standard", "prettier"],
+
+    "parser": "@typescript-eslint/parser",
+
+    "parserOptions": {
+      "ecmaVersion": "latest",
+      "sourceType": "module"
+    },
+
+    "plugins": ["@typescript-eslint", "prettier"],
+
+    "rules": {
+      "prettier/prettier": ["error", { "singleQuote": true, "parser": "flow" }]
+    }
+  }
+
+  - Criar arquivo .prettierrc
+    { "singleQuote": true }
+
+9. Instalar o Express e seus tipos
+  $ npm install express
+  $ npm install @types/express -D
+
+10. Instalar o ts-node-dev
+  $ npm install ts-node-dev -D
+
+11. Definir scripts
+  "scripts": {
+    "dev": "ts-node-dev -r dotenv/config ./src/index.ts",
+    "build": "tsc",
+    "start": "node -r dotenv/config ./dist/index.js"
+  },
+
+12. Criar arquivo .gitignore
+  node_modules/
+  .env
+  dist/
